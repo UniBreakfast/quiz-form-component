@@ -36,5 +36,6 @@ export default class ProgressBlock {
 
     this.percentageSpan.innerText = `${percentage}%`
     this.iSpan.innerText = i
+    this.el.style.setProperty('--progress', `${percentage}%`)
   }
 }
