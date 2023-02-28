@@ -5,6 +5,10 @@ export default class QuizForm {
     this.options = options
     this.name = `qf${qfCount++}`
     this.render()
+
+    this.el.addEventListener('change', e => {
+      this.goToQuestion(+e.target.closest('fieldset').firstChild.value + 1)
+    })
   }
 
   render() {
@@ -21,6 +25,14 @@ export default class QuizForm {
     form.append(questionBlock.el, pictureBlock.el, progressBlock.el, buttonBlock.el)
 
     document.querySelector(this.selector)?.append(form)
+
+    this.el = form
+  }
+
+  goToQuestion(i) {
+    const radios = this.el.querySelectorAll(`[name=${this.name}]`)
+
+    radios[i].checked = true
   }
 }
 

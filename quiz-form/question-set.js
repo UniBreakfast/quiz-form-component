@@ -14,7 +14,7 @@ export default class QuestionSet {
       answer => new RadioAnswer(answer)
     )
 
-    Object.assign(radio, {type: 'radio', name: this.name, hidden: true, checked: !i})
+    Object.assign(radio, {type: 'radio', name: this.name, hidden: true, checked: !i, value: i})
     qSet.className = 'question-set'
     qTitle.textContent = this.question.title
     qAnswerGroup.append(
