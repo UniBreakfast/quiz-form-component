@@ -1,0 +1,18 @@
+
+fieldset, fieldset>ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+fieldset label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+fieldset label img {
+  width: 40px;
+  height: 40px;
+}

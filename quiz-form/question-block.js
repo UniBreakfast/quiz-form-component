@@ -1,6 +1,7 @@
 export default class QuestionBlock {
-  constructor(questions) {
+  constructor(questions, name) {
     this.questions = questions
+    this.name = name
     this.render()
   }
 
@@ -8,7 +9,7 @@ export default class QuestionBlock {
     const block = document.createElement('div')
 
     const questionSets = this.questions.map(
-      question => new QuestionSet(question)
+      (question, i) => new QuestionSet(question, this.name, i)
     )
 
     block.className = 'question-block'

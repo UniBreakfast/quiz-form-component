@@ -3,13 +3,14 @@ export default class QuizForm {
     this.questions = questions
     this.selector = selector
     this.options = options
+    this.name = `qf${qfCount++}`
     this.render()
   }
 
   render() {
     const { image, btnLabels } = this.options
     const count = this.questions.length
-    const questionBlock = new QuestionBlock(this.questions)
+    const questionBlock = new QuestionBlock(this.questions, this.name)
     const pictureBlock = new PictureBlock(count, image)
     const progressBlock = new ProgressBlock(count)
     const buttonBlock = new ButtonBlock(btnLabels)
@@ -22,6 +23,8 @@ export default class QuizForm {
     document.querySelector(this.selector)?.append(form)
   }
 }
+
+let qfCount = 0
 
 import QuestionBlock from './question-block.js'
 import PictureBlock from './picture-block.js'
