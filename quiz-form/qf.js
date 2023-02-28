@@ -14,12 +14,12 @@ export default class QuizForm {
   }
 
   render() {
-    const { image, imageText, btnLabels } = this.options
+    const { image, imageText, progressWord, progressText, btnLabels } = this.options
     const count = this.questions.length
     const questionBlock = new QuestionBlock(this.questions, this.name)
     const pictureBlock = new PictureBlock(count, image, imageText)
-    const progressBlock = new ProgressBlock(count)
-    const buttonBlock = new ButtonBlock(btnLabels)
+    const progressBlock = new ProgressBlock(count, progressWord, progressText)
+    const buttonBlock = new ButtonBlock(btnLabels, () => this.goToQuestion(this.currentIndex - 1))
     const form = document.createElement('form')
 
     form.className = 'quiz-form'
@@ -30,6 +30,8 @@ export default class QuizForm {
 
     this.el = form
     this.pictureBlock = pictureBlock
+    this.progressBlock = progressBlock
+    this.buttonBlock = buttonBlock
   }
 
   goToQuestion(i) {
@@ -39,9 +41,18 @@ export default class QuizForm {
     if (nextRadio) {
       nextRadio.checked = true
       this.pictureBlock.updateCount(this.questions.length - i)
+      this.progressBlock.updateProgress(i)
     } else {
       this.el.submit()
     }
+
+    this.buttonBlock.backButton.disabled = !i
+  }
+
+  get currentIndex() {
+    const checkedRadio = this.el.querySelector(`[name=${this.name}]:checked`)
+
+    return +checkedRadio?.value
   }
 }
 

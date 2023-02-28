@@ -1,23 +1,30 @@
 export default class ButtonBlock {
-  constructor(btnLabels) {
+  constructor(btnLabels, hanleBack) {
     this.btnLabels = btnLabels
-    this.el = document.createElement('div')
-    this.el.className = 'button-block'
+    this.hanleBack = hanleBack
     this.render()
   }
 
   render() {
+    const block = document.createElement('div')
     const { btnLabels } = this
-    const { el } = this
+    
     const buttons = btnLabels.map((label) => {
       const button = document.createElement('button')
 
-      button.className = 'btn'
+      button.type = 'button'
       button.textContent = label
 
       return button
     })
 
-    el.append(...buttons)
+    block.className = 'button-block'
+    buttons[1].disabled = true
+    buttons[1].addEventListener('click', this.hanleBack)
+
+    block.append(...buttons)
+
+    this.el = block
+    this.backButton = buttons[1]
   }
 }
