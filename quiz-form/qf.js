@@ -7,15 +7,17 @@ export default class QuizForm {
     this.render()
 
     this.el.addEventListener('change', e => {
-      this.goToQuestion(+e.target.closest('fieldset').firstChild.value + 1)
+      const i = +e.target.closest('fieldset').firstChild.value + 1
+
+      this.goToQuestion(i)
     })
   }
 
   render() {
-    const { image, btnLabels } = this.options
+    const { image, imageText, btnLabels } = this.options
     const count = this.questions.length
     const questionBlock = new QuestionBlock(this.questions, this.name)
-    const pictureBlock = new PictureBlock(count, image)
+    const pictureBlock = new PictureBlock(count, image, imageText)
     const progressBlock = new ProgressBlock(count)
     const buttonBlock = new ButtonBlock(btnLabels)
     const form = document.createElement('form')
@@ -27,12 +29,19 @@ export default class QuizForm {
     document.querySelector(this.selector)?.append(form)
 
     this.el = form
+    this.pictureBlock = pictureBlock
   }
 
   goToQuestion(i) {
     const radios = this.el.querySelectorAll(`[name=${this.name}]`)
+    const nextRadio = radios[i]
 
-    radios[i].checked = true
+    if (nextRadio) {
+      nextRadio.checked = true
+      this.pictureBlock.updateCount(this.questions.length - i)
+    } else {
+      this.el.submit()
+    }
   }
 }
 

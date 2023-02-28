@@ -1,28 +1,36 @@
 export default class PictureBlock {
-  constructor(count, image) {
+  constructor(count, image, imageText) {
     this.count = count
     this.image = image
-    this.el = document.createElement('div')
-    this.el.className = 'picture-block'
+    this.imageText = imageText
     this.render()
   }
 
   render() {
+    const block = document.createElement('div')
     const { count, image } = this
     const { el } = this
     const img = document.createElement('img')
+    const p = document.createElement('p')
+    const countSpan = document.createElement('span')
+    const [leftPart, rightPart] = this.imageText.split('{X}')
 
+    block.className = 'picture-block'
     img.src = image
     img.alt = 'quiz image'
     img.className = 'quiz-image'
 
-    el.append(img)
+    p.append(leftPart, countSpan, rightPart)
+    countSpan.append(count)
 
-    for (let i = 0; i < count; i++) {
-      const div = document.createElement('div')
+    block.append(img, p)
 
-      div.className = 'picture-item'
-      el.append(div)
-    }
+    this.el = block
+    this.counter = countSpan
+  }
+
+  updateCount(count) {
+    this.count = count
+    this.counter.innerText = count
   }
 }
