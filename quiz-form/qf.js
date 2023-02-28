@@ -7,7 +7,7 @@ export default class QuizForm {
   }
 
   render() {
-    const { image } = this.options
+    const { image, btnLabels } = this.options
     const count = this.questions.length
     const questionBlock = new QuestionBlock(this.questions)
     const pictureBlock = new PictureBlock(count, image)
@@ -18,6 +18,8 @@ export default class QuizForm {
     form.className = 'quiz-form'
 
     form.append(questionBlock.el, pictureBlock.el, progressBlock.el, buttonBlock.el)
+
+    document.querySelector(this.selector)?.append(form)
   }
 }
 

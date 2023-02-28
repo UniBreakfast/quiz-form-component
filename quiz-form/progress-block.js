@@ -5,4 +5,15 @@ export default class ProgressBlock {
     this.el.className = 'progress-block'
     this.render()
   }
+
+  render() {
+    const { count, el } = this
+
+    for (let i = 0; i < count; i++) {
+      const div = document.createElement('div')
+
+      div.className = 'progress-item'
+      el.append(div)
+    }
+  }
 }
